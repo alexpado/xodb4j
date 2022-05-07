@@ -16,17 +16,6 @@ public class XoDB {
     private final Map<Integer, IPack>     packCache     = new HashMap<>();
 
     /**
-     * Create a new {@link XoDB} instance.
-     *
-     * @throws Exception
-     *         Thrown if the cache couldn't be built.
-     */
-    public XoDB() throws Exception {
-
-        this.buildCaches(false);
-    }
-
-    /**
      * Retrieve the root url common to all endpoints.
      *
      * @return A string
