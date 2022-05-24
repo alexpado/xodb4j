@@ -115,6 +115,16 @@ public class XoDB {
     }
 
     /**
+     * Retrieve the {@link MarketRepository} allowing to query CrossoutDB for retrieving {@link IPack}.
+     *
+     * @return A {@link MarketRepository} instance.
+     */
+    public MarketRepository market(IItem item) {
+
+        return new MarketRepository(this, item);
+    }
+
+    /**
      * Retrieve the {@link IRarity} cache.
      *
      * @return A {@link Map}
