@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class XoDB {
 
+    public static final String API_URL = "https://crossoutdb.com/api/v2";
+
     private final Map<Integer, IRarity>   rarityCache   = new HashMap<>();
     private final Map<Integer, IFaction>  factionCache  = new HashMap<>();
     private final Map<Integer, IType>     typeCache     = new HashMap<>();
@@ -22,7 +24,7 @@ public class XoDB {
      */
     public String getRootUrl() {
 
-        return "https://crossoutdb.com/api/v2";
+        return API_URL;
     }
 
     /**
@@ -39,6 +41,7 @@ public class XoDB {
         this.typeCache.clear();
         this.categoryCache.clear();
         this.packCache.clear();
+        this.itemCache.clear();
 
         this.rarities().findAll().complete().forEach(rarity -> this.rarityCache.put(rarity.getId(), rarity));
         this.factions().findAll().complete().forEach(faction -> this.factionCache.put(faction.getId(), faction));
@@ -52,61 +55,61 @@ public class XoDB {
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link IRarity}.
+     * Retrieve the {@link RarityRepository} allowing to query CrossoutDB for retrieving {@link IRarity}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link RarityRepository} instance.
      */
-    public RestRepository<IRarity, Integer> rarities() {
+    public RarityRepository rarities() {
 
         return new RarityRepository(this);
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link IItem}.
+     * Retrieve the {@link ItemRepository} allowing to query CrossoutDB for retrieving {@link IItem}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link ItemRepository} instance.
      */
-    public RestRepository<IItem, Integer> items() {
+    public ItemRepository items() {
 
         return new ItemRepository(this);
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link IFaction}.
+     * Retrieve the {@link FactionRepository} allowing to query CrossoutDB for retrieving {@link IFaction}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link FactionRepository} instance.
      */
-    public RestRepository<IFaction, Integer> factions() {
+    public FactionRepository factions() {
 
         return new FactionRepository(this);
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link IType}.
+     * Retrieve the {@link TypeRepository} allowing to query CrossoutDB for retrieving {@link IType}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link TypeRepository} instance.
      */
-    public RestRepository<IType, Integer> types() {
+    public TypeRepository types() {
 
         return new TypeRepository(this);
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link ICategory}.
+     * Retrieve the {@link CategoryRepository} allowing to query CrossoutDB for retrieving {@link ICategory}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link CategoryRepository} instance.
      */
-    public RestRepository<ICategory, Integer> categories() {
+    public CategoryRepository categories() {
 
         return new CategoryRepository(this);
     }
 
     /**
-     * Retrieve the {@link RestRepository} allowing to query CrossoutDB for retrieving {@link IPack}.
+     * Retrieve the {@link PackRepository} allowing to query CrossoutDB for retrieving {@link IPack}.
      *
-     * @return A {@link RestRepository} instance.
+     * @return A {@link PackRepository} instance.
      */
-    public RestRepository<IPack, Integer> packs() {
+    public PackRepository packs() {
 
         return new PackRepository(this);
     }
