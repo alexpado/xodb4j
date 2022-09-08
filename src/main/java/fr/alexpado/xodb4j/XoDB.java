@@ -4,6 +4,7 @@ import fr.alexpado.xodb4j.interfaces.*;
 import fr.alexpado.xodb4j.repositories.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class XoDB {
@@ -36,21 +37,28 @@ public class XoDB {
      */
     public void buildCaches(boolean full) throws Exception {
 
+        List<IRarity>   rarities   = this.rarities().findAll().complete();
+        List<IFaction>  factions   = this.factions().findAll().complete();
+        List<IType>     types      = this.types().findAll().complete();
+        List<ICategory> categories = this.categories().findAll().complete();
+
         this.rarityCache.clear();
         this.factionCache.clear();
         this.typeCache.clear();
         this.categoryCache.clear();
-        this.packCache.clear();
-        this.itemCache.clear();
 
-        this.rarities().findAll().complete().forEach(rarity -> this.rarityCache.put(rarity.getId(), rarity));
-        this.factions().findAll().complete().forEach(faction -> this.factionCache.put(faction.getId(), faction));
-        this.types().findAll().complete().forEach(type -> this.typeCache.put(type.getId(), type));
-        this.categories().findAll().complete().forEach(category -> this.categoryCache.put(category.getId(), category));
+        rarities.forEach(rarity -> this.rarityCache.put(rarity.getId(), rarity));
+        factions.forEach(faction -> this.factionCache.put(faction.getId(), faction));
+        types.forEach(type -> this.typeCache.put(type.getId(), type));
+        categories.forEach(category -> this.categoryCache.put(category.getId(), category));
 
         if (full) {
-            this.items().findAll().complete().forEach(item -> this.itemCache.put(item.getId(), item));
-            this.packs().findAll().complete().forEach(pack -> this.packCache.put(pack.getId(), pack));
+            List<IItem> items = this.items().findAll().complete();
+            List<IPack> packs = this.packs().findAll().complete();
+            this.packCache.clear();
+            this.itemCache.clear();
+            items.forEach(item -> this.itemCache.put(item.getId(), item));
+            packs.forEach(pack -> this.packCache.put(pack.getId(), pack));
         }
     }
 
