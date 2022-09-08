@@ -1,7 +1,11 @@
 package fr.alexpado.xodb4j;
 
+import fr.alexpado.lib.rest.RestAction;
+import fr.alexpado.lib.rest.enums.RequestMethod;
+import fr.alexpado.lib.rest.interfaces.IRestAction;
 import fr.alexpado.xodb4j.interfaces.*;
 import fr.alexpado.xodb4j.repositories.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -190,6 +194,29 @@ public class XoDB {
     public Map<Integer, IPack> getPackCache() {
 
         return this.packCache;
+    }
+
+    /**
+     * Retrieve an {@link IRestAction} allowing a call to the health endpoint of CrossoutDB.
+     *
+     * @return An {@link IRestAction}.
+     */
+    public IRestAction<Void> health() {
+
+        return new RestAction<>() {
+
+            @Override
+            public @NotNull RequestMethod getRequestMethod() {
+
+                return RequestMethod.GET;
+            }
+
+            @Override
+            public @NotNull String getRequestURL() {
+
+                return "%s/health".formatted(API_URL);
+            }
+        };
     }
 
 }
