@@ -4,7 +4,7 @@ import fr.alexpado.xodb4j.interfaces.IItem;
 import fr.alexpado.xodb4j.interfaces.IMarket;
 import fr.alexpado.xodb4j.interfaces.common.Creatable;
 import fr.alexpado.xodb4j.interfaces.common.Identifiable;
-import fr.alexpado.xodb4j.interfaces.common.Marchantable;
+import fr.alexpado.xodb4j.interfaces.common.Merchantable;
 import org.json.JSONArray;
 
 import java.time.LocalDateTime;
@@ -89,7 +89,7 @@ public class Market implements IMarket {
     }
 
     /**
-     * Retrieve the amount of money needed to buy this {@link Marchantable}.
+     * Retrieve the amount of money needed to buy this {@link Merchantable}.
      *
      * @return The buy price
      */
@@ -100,7 +100,7 @@ public class Market implements IMarket {
     }
 
     /**
-     * Retrieve the amount of money obtainable by selling this {@link Marchantable}.
+     * Retrieve the amount of money obtainable by selling this {@link Merchantable}.
      *
      * @return The sell price
      */

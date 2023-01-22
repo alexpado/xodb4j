@@ -1,7 +1,7 @@
 package fr.alexpado.xodb4j.interfaces;
 
 import fr.alexpado.xodb4j.interfaces.common.Identifiable;
-import fr.alexpado.xodb4j.interfaces.common.Marchantable;
+import fr.alexpado.xodb4j.interfaces.common.Merchantable;
 import fr.alexpado.xodb4j.interfaces.common.Nameable;
 
 /**
@@ -9,7 +9,7 @@ import fr.alexpado.xodb4j.interfaces.common.Nameable;
  *
  * @author alexpado
  */
-public interface IPack extends Identifiable<Integer>, Nameable, Marchantable, Comparable<IPack> {
+public interface IPack extends Identifiable<Integer>, Nameable, Merchantable, Comparable<IPack> {
 
     /**
      * Retrieve this {@link IPack}'s key identifier.

@@ -4,7 +4,7 @@ import fr.alexpado.xodb4j.interfaces.common.*;
 
 import java.time.LocalDateTime;
 
-public interface IItem extends Identifiable<Integer>, Nameable, Describable, Updatable<LocalDateTime>, Marchantable, Craftable, Comparable<IItem> {
+public interface IItem extends Identifiable<Integer>, Nameable, Describable, Updatable<LocalDateTime>, Merchantable, Craftable, Comparable<IItem> {
 
     /**
      * Check if this {@link IItem} has been removed from the game.

@@ -29,6 +29,8 @@ public class Item implements IItem {
     private final double        marketSell;
     private final double        craftingSellSum;
     private final double        craftingBuySum;
+    private final int           sellOffers;
+    private final int           buyOrders;
     private final LocalDateTime lastUpdate;
     private final IRarity       rarity;
     private final IType         type;
@@ -54,6 +56,8 @@ public class Item implements IItem {
         this.marketSell      = source.getInt("sellPrice") / 100.0;
         this.craftingSellSum = source.getInt("craftingSellSum") / 100.0;
         this.craftingBuySum  = source.getInt("craftingBuySum") / 100.0;
+        this.sellOffers      = source.getInt("sellOffers");
+        this.buyOrders       = source.getInt("buyOrders");
         this.removed         = source.getInt("removed") == 1;
         this.meta            = source.getInt("meta") == 1;
         this.craftable       = source.getInt("craftable") == 1;
@@ -123,7 +127,7 @@ public class Item implements IItem {
     }
 
     /**
-     * Retrieve the amount of money needed to buy this {@link Marchantable}.
+     * Retrieve the amount of money needed to buy this {@link Merchantable}.
      *
      * @return The buy price
      */
@@ -134,7 +138,7 @@ public class Item implements IItem {
     }
 
     /**
-     * Retrieve the amount of money obtainable by selling this {@link Marchantable}.
+     * Retrieve the amount of money obtainable by selling this {@link Merchantable}.
      *
      * @return The sell price
      */
@@ -142,6 +146,28 @@ public class Item implements IItem {
     public double getMarketBuy() {
 
         return this.marketBuy;
+    }
+
+    /**
+     * Retrieve the amount of sell offers available for this {@link Merchantable}.
+     *
+     * @return The sell offers amount.
+     */
+    @Override
+    public int getSellOffers() {
+
+        return this.sellOffers;
+    }
+
+    /**
+     * Retrieve the amount of buy orders available for this {@link Merchantable}.
+     *
+     * @return The buy orders amount.
+     */
+    @Override
+    public int getBuyOrders() {
+
+        return this.buyOrders;
     }
 
     /**

@@ -2,7 +2,7 @@ package fr.alexpado.xodb4j.impl;
 
 import fr.alexpado.xodb4j.interfaces.IPack;
 import fr.alexpado.xodb4j.interfaces.common.Identifiable;
-import fr.alexpado.xodb4j.interfaces.common.Marchantable;
+import fr.alexpado.xodb4j.interfaces.common.Merchantable;
 import fr.alexpado.xodb4j.interfaces.common.Nameable;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -124,7 +124,7 @@ public class Pack implements IPack {
     }
 
     /**
-     * Retrieve the amount of money needed to buy this {@link Marchantable}.
+     * Retrieve the amount of money needed to buy this {@link Merchantable}.
      *
      * @return The buy price
      */
@@ -135,7 +135,7 @@ public class Pack implements IPack {
     }
 
     /**
-     * Retrieve the amount of money obtainable by selling this {@link Marchantable}.
+     * Retrieve the amount of money obtainable by selling this {@link Merchantable}.
      *
      * @return The sell price
      */
@@ -143,6 +143,28 @@ public class Pack implements IPack {
     public double getMarketBuy() {
 
         return this.buyPrice;
+    }
+
+    /**
+     * Retrieve the amount of sell offers available for this {@link Merchantable}.
+     *
+     * @return The sell offers amount.
+     */
+    @Override
+    public int getSellOffers() {
+
+        throw new UnsupportedOperationException("Packs do not have sell offers.");
+    }
+
+    /**
+     * Retrieve the amount of buy orders available for this {@link Merchantable}.
+     *
+     * @return The buy orders amount.
+     */
+    @Override
+    public int getBuyOrders() {
+
+        throw new UnsupportedOperationException("Packs do not have buy orders.");
     }
 
     /**
