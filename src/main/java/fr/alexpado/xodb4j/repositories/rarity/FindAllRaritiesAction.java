@@ -2,6 +2,7 @@ package fr.alexpado.xodb4j.repositories.rarity;
 
 import fr.alexpado.lib.rest.RestAction;
 import fr.alexpado.lib.rest.enums.RequestMethod;
+import fr.alexpado.lib.rest.interfaces.IRestResponse;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.impl.Rarity;
 import fr.alexpado.xodb4j.interfaces.IRarity;
@@ -45,15 +46,15 @@ public class FindAllRaritiesAction extends RestAction<List<IRarity>> {
     /**
      * Convert the response body to the desired type for this request.
      *
-     * @param requestBody
+     * @param response
      *         The response body received.
      *
-     * @return The response body as byte array.
+     * @return The converted response body
      */
     @Override
-    public List<IRarity> convert(byte[] requestBody) {
+    public List<IRarity> convert(IRestResponse response) {
 
-        JSONArray     array    = new JSONArray(new String(requestBody));
+        JSONArray     array    = new JSONArray(new String(response.getBody()));
         List<IRarity> rarities = new ArrayList<>();
 
         for (int i = 0 ; i < array.length() ; i++) {
@@ -62,5 +63,4 @@ public class FindAllRaritiesAction extends RestAction<List<IRarity>> {
 
         return rarities;
     }
-
 }

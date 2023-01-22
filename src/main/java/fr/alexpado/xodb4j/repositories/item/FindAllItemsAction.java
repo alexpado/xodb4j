@@ -2,6 +2,7 @@ package fr.alexpado.xodb4j.repositories.item;
 
 import fr.alexpado.lib.rest.RestAction;
 import fr.alexpado.lib.rest.enums.RequestMethod;
+import fr.alexpado.lib.rest.interfaces.IRestResponse;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.impl.Item;
 import fr.alexpado.xodb4j.interfaces.IItem;
@@ -47,17 +48,17 @@ public class FindAllItemsAction extends RestAction<List<IItem>> {
     }
 
     /**
-     * Convert the response's body to the desired type.
+     * Convert the response body to the desired type for this request.
      *
-     * @param requestBody
-     *         The response's body.
+     * @param response
+     *         The response body received.
      *
-     * @return An object of desired type.
+     * @return The converted response body
      */
     @Override
-    public List<IItem> convert(byte[] requestBody) {
+    public List<IItem> convert(IRestResponse response) {
 
-        JSONArray   array = new JSONArray(new String(requestBody));
+        JSONArray   array = new JSONArray(new String(response.getBody()));
         List<IItem> items = new ArrayList<>();
 
         for (int i = 0 ; i < array.length() ; i++) {

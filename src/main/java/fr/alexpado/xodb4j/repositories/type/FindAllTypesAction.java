@@ -2,6 +2,7 @@ package fr.alexpado.xodb4j.repositories.type;
 
 import fr.alexpado.lib.rest.RestAction;
 import fr.alexpado.lib.rest.enums.RequestMethod;
+import fr.alexpado.lib.rest.interfaces.IRestResponse;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.impl.Type;
 import fr.alexpado.xodb4j.interfaces.IType;
@@ -45,15 +46,15 @@ public class FindAllTypesAction extends RestAction<List<IType>> {
     /**
      * Convert the response body to the desired type for this request.
      *
-     * @param requestBody
+     * @param response
      *         The response body received.
      *
-     * @return The response body as byte array.
+     * @return The converted response body
      */
     @Override
-    public List<IType> convert(byte[] requestBody) {
+    public List<IType> convert(IRestResponse response) {
 
-        JSONArray   array = new JSONArray(new String(requestBody));
+        JSONArray   array = new JSONArray(new String(response.getBody()));
         List<IType> types = new ArrayList<>();
 
         for (int i = 0 ; i < array.length() ; i++) {
@@ -62,5 +63,4 @@ public class FindAllTypesAction extends RestAction<List<IType>> {
 
         return types;
     }
-
 }
