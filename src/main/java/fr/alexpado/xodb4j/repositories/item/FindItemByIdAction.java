@@ -6,18 +6,21 @@ import fr.alexpado.lib.rest.interfaces.IRestResponse;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.impl.Item;
 import fr.alexpado.xodb4j.interfaces.IItem;
+import fr.alexpado.xodb4j.providers.composite.ItemProvider;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
 public class FindItemByIdAction extends RestAction<IItem> {
 
-    private final XoDB    xoDB;
-    private final Integer id;
+    private final XoDB         xoDB;
+    private final ItemProvider provider;
+    private final Integer      id;
 
-    public FindItemByIdAction(XoDB xoDB, Integer id) {
+    public FindItemByIdAction(XoDB xoDB, ItemProvider provider, Integer id) {
 
-        this.xoDB = xoDB;
-        this.id   = id;
+        this.xoDB     = xoDB;
+        this.provider = provider;
+        this.id       = id;
     }
 
     @Override
@@ -49,6 +52,6 @@ public class FindItemByIdAction extends RestAction<IItem> {
     public IItem convert(IRestResponse response) {
 
         JSONArray array = new JSONArray(new String(response.getBody()));
-        return new Item(this.xoDB, array.getJSONObject(0));
+        return new Item(this.provider, array.getJSONObject(0));
     }
 }

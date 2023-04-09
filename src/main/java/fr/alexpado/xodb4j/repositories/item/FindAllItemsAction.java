@@ -6,6 +6,7 @@ import fr.alexpado.lib.rest.interfaces.IRestResponse;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.impl.Item;
 import fr.alexpado.xodb4j.interfaces.IItem;
+import fr.alexpado.xodb4j.providers.composite.ItemProvider;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
@@ -19,16 +20,20 @@ import java.util.Map;
 public class FindAllItemsAction extends RestAction<List<IItem>> {
 
     private final XoDB                xoDB;
+    private final ItemProvider        provider;
     private final Map<String, String> searchParams;
 
-    public FindAllItemsAction(XoDB xoDB) {
+    public FindAllItemsAction(XoDB xoDB, ItemProvider provider) {
 
-        this.xoDB         = xoDB;
+        this.xoDB = xoDB;
+
+        this.provider     = provider;
         this.searchParams = new HashMap<>();
     }
 
-    public FindAllItemsAction(XoDB xoDB, Map<String, Object> searchParams) {
+    public FindAllItemsAction(XoDB xoDB, ItemProvider provider, Map<String, Object> searchParams) {
 
+        this.provider     = provider;
         this.xoDB         = xoDB;
         this.searchParams = new HashMap<>();
 
@@ -62,7 +67,7 @@ public class FindAllItemsAction extends RestAction<List<IItem>> {
         List<IItem> items = new ArrayList<>();
 
         for (int i = 0 ; i < array.length() ; i++) {
-            items.add(new Item(this.xoDB, array.getJSONObject(i)));
+            items.add(new Item(this.provider, array.getJSONObject(i)));
         }
         return items;
     }

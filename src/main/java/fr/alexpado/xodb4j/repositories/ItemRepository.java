@@ -3,6 +3,7 @@ package fr.alexpado.xodb4j.repositories;
 import fr.alexpado.lib.rest.interfaces.IRestAction;
 import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.interfaces.IItem;
+import fr.alexpado.xodb4j.providers.composite.ItemProvider;
 import fr.alexpado.xodb4j.repositories.item.FindAllItemsAction;
 import fr.alexpado.xodb4j.repositories.item.FindItemByIdAction;
 import org.jetbrains.annotations.NotNull;
@@ -12,11 +13,13 @@ import java.util.Map;
 
 public class ItemRepository {
 
-    private final XoDB xoDB;
+    private final XoDB         xoDB;
+    private final ItemProvider provider;
 
-    public ItemRepository(XoDB xoDB) {
+    public ItemRepository(XoDB xoDB, ItemProvider provider) {
 
         this.xoDB = xoDB;
+        this.provider = provider;
     }
 
     /**
@@ -29,7 +32,7 @@ public class ItemRepository {
      */
     public @NotNull IRestAction<IItem> findById(@NotNull Integer id) {
 
-        return new FindItemByIdAction(this.xoDB, id);
+        return new FindItemByIdAction(this.xoDB, provider, id);
     }
 
     /**
@@ -39,7 +42,7 @@ public class ItemRepository {
      */
     public IRestAction<List<IItem>> findAll() {
 
-        return new FindAllItemsAction(this.xoDB);
+        return new FindAllItemsAction(xoDB, this.provider);
     }
 
     /**
@@ -52,6 +55,6 @@ public class ItemRepository {
      */
     public IRestAction<List<IItem>> findAll(Map<String, Object> meta) {
 
-        return new FindAllItemsAction(this.xoDB, meta);
+        return new FindAllItemsAction(this.xoDB, this.provider, meta);
     }
 }

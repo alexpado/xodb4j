@@ -1,9 +1,9 @@
 package fr.alexpado.xodb4j.impl;
 
-import fr.alexpado.xodb4j.XoDB;
 import fr.alexpado.xodb4j.XoDBUtils;
 import fr.alexpado.xodb4j.interfaces.*;
 import fr.alexpado.xodb4j.interfaces.common.*;
+import fr.alexpado.xodb4j.providers.composite.ItemProvider;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -40,12 +40,13 @@ public class Item implements IItem {
     /**
      * Create a new {@link Item} instance.
      *
-     * @param xoDB
-     *         The {@link XoDB} instance to use when retrieving specific data about this {@link Item} sub-properties.
+     * @param provider
+     *         The {@link ItemProvider} instance to use when retrieving specific data about this {@link Item}
+     *         sub-properties.
      * @param source
      *         JSON containing all values needed to create this {@link Item}.
      */
-    public Item(XoDB xoDB, JSONObject source) {
+    public Item(ItemProvider provider, JSONObject source) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -63,10 +64,10 @@ public class Item implements IItem {
         this.craftable       = source.getInt("craftable") == 1;
         this.lastUpdate      = LocalDateTime.parse(source.getString("lastUpdateTime"), formatter);
 
-        this.rarity   = xoDB.getRarityCache().get(source.getInt("rarityId"));
-        this.type     = xoDB.getTypeCache().get(source.getInt("typeId"));
-        this.category = xoDB.getCategoryCache().get(source.getInt("categoryId"));
-        this.faction  = xoDB.getFactionCache().get(source.getInt("factionNumber"));
+        this.rarity   = provider.provideRarity(source.getInt("rarityId"));
+        this.type     = provider.provideType(source.getInt("typeId"));
+        this.category = provider.provideCategory(source.getInt("categoryId"));
+        this.faction  = provider.provideFaction(source.getInt("factionNumber"));
     }
 
     /**
