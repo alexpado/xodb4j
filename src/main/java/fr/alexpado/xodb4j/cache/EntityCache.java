@@ -42,6 +42,17 @@ public class EntityCache<T> {
     }
 
     /**
+     * Force store the provided entities into this cache. Very useful to populate the cache without querying it first.
+     *
+     * @param entities
+     *         The entities to store.
+     */
+    public void store(Iterable<T> entities) {
+
+        entities.forEach(entity -> this.cache.put(entity, System.currentTimeMillis()));
+    }
+
+    /**
      * Remove all element that can be considered as outdated from the cache.
      */
     private void prune() {
