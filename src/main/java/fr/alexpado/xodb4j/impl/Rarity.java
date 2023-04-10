@@ -8,6 +8,7 @@ import fr.alexpado.xodb4j.interfaces.common.Nameable;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Class implementing the {@link IRarity} interface representing an {@link IItem} rarity.
@@ -89,6 +90,27 @@ public class Rarity implements IRarity {
     public String getName() {
 
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        Rarity rarity = (Rarity) o;
+        return Objects.equals(this.getId(), rarity.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(this.getId());
     }
 
     @Override

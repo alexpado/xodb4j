@@ -6,6 +6,8 @@ import fr.alexpado.xodb4j.interfaces.common.Identifiable;
 import fr.alexpado.xodb4j.interfaces.common.Nameable;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 /**
  * Class implementing the {@link ICategory} interface representing an {@link IItem} category.
  * <p>
@@ -64,6 +66,27 @@ public class Category implements ICategory {
     public String getName() {
 
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        Category category = (Category) o;
+        return Objects.equals(this.getId(), category.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(this.getId());
     }
 
     @Override

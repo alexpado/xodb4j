@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Pack implements IPack {
 
     private final Integer id;
@@ -176,6 +178,27 @@ public class Pack implements IPack {
     public String getName() {
 
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        Pack pack = (Pack) o;
+        return Objects.equals(this.getId(), pack.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(this.getId());
     }
 
     /**

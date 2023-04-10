@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Class implementing the {@link IItem} interface.
@@ -257,6 +258,27 @@ public class Item implements IItem {
     public IFaction getFaction() {
 
         return this.faction;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        Item item = (Item) o;
+        return Objects.equals(this.getId(), item.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(this.getId());
     }
 
     /**
