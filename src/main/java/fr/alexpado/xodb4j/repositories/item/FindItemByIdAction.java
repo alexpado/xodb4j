@@ -10,17 +10,21 @@ import fr.alexpado.xodb4j.providers.composite.ItemProvider;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
+import java.util.Map;
+
 public class FindItemByIdAction extends RestAction<IItem> {
 
-    private final XoDB         xoDB;
-    private final ItemProvider provider;
-    private final Integer      id;
+    private final XoDB                xoDB;
+    private final ItemProvider        provider;
+    private final Integer             id;
+    private final Map<String, String> urlParams;
 
-    public FindItemByIdAction(XoDB xoDB, ItemProvider provider, Integer id) {
+    public FindItemByIdAction(XoDB xoDB, ItemProvider provider, Integer id, Map<String, String> urlParams) {
 
-        this.xoDB     = xoDB;
-        this.provider = provider;
-        this.id       = id;
+        this.xoDB      = xoDB;
+        this.provider  = provider;
+        this.id        = id;
+        this.urlParams = urlParams;
     }
 
     @Override
@@ -38,6 +42,17 @@ public class FindItemByIdAction extends RestAction<IItem> {
     public @NotNull String getRequestURL() {
 
         return String.format("%s/item/%s", this.xoDB.getRootUrl(), this.id);
+    }
+
+    /**
+     * Retrieve a map of parameters that should be included in the request URL.
+     *
+     * @return A map of parameters.
+     */
+    @Override
+    public @NotNull Map<String, String> getRequestParameters() {
+
+        return this.urlParams;
     }
 
     /**

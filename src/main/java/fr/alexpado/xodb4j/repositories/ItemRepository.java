@@ -8,6 +8,7 @@ import fr.alexpado.xodb4j.repositories.item.FindAllItemsAction;
 import fr.alexpado.xodb4j.repositories.item.FindItemByIdAction;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class ItemRepository {
 
     public ItemRepository(XoDB xoDB, ItemProvider provider) {
 
-        this.xoDB = xoDB;
+        this.xoDB     = xoDB;
         this.provider = provider;
     }
 
@@ -32,7 +33,22 @@ public class ItemRepository {
      */
     public @NotNull IRestAction<IItem> findById(@NotNull Integer id) {
 
-        return new FindItemByIdAction(this.xoDB, provider, id);
+        return this.findById(id, new HashMap<>());
+    }
+
+    /**
+     * Retrieve one entity of the current type identifiable by its ID.
+     *
+     * @param id
+     *         The entity's identifier.
+     * @param urlParams
+     *         Map representing the URL parameters
+     *
+     * @return A {@link IRestAction}
+     */
+    public @NotNull IRestAction<IItem> findById(@NotNull Integer id, Map<String, String> urlParams) {
+
+        return new FindItemByIdAction(this.xoDB, provider, id, urlParams);
     }
 
     /**
